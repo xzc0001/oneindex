@@ -1,3 +1,6 @@
+<?php if(strpos($_SERVER['HTTP_USER_AGENT'],'Kindle')!==false):?>
+<?php require 'kindle.php'?>
+<?php else:?>
 <?php view::layout('layout')?>
 <?php 
 function file_ico($item){
@@ -99,3 +102,4 @@ $(function(){
 });
 </script>
 <?php view::end('content');?>
+<?php endif;?>
