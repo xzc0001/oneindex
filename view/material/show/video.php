@@ -1,11 +1,28 @@
 <?php view::layout('layout')?>
 
 <?php view::begin('content');?>
+<link href="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.js"></script>
 <div class="mdui-container-fluid">
 	<br>
+	<?php $ext = strtolower(pathinfo($item['name'], PATHINFO_EXTENSION));if(in_array($ext,['mkv'])):?>
 	<video class="mdui-video-fluid mdui-center" preload controls poster="<?php @e($item['thumb'].'&width=176&height=176');?>">
 	  <source src="<?php e($item['downloadUrl']);?>" type="video/mp4">
 	</video>
+<?php else:?>
+	<div class="mdui-video-fluid mdui-center" preload controls id="dplayer"></div>
+	<script>
+	const dp = new DPlayer({
+    	container: document.getElementById('dplayer'),
+   		screenshot: false,
+   	  video: {
+       	url: '<?php e($item['downloadUrl']);?>',
+        	pic: '<?php @e($item['thumb'].'&width=1024&height=1024');?>',
+        	type: 'auto'
+    		}
+	});
+	</script>
+<?php endif?>
 	<br>
 	<!-- 固定标签 -->
 	<div class="mdui-textfield">
